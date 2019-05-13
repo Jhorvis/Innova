@@ -15,6 +15,9 @@ class CreatePersonrolesTable extends Migration
     {
         Schema::create('personroles', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('description');
+            $table->string('privilegy');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

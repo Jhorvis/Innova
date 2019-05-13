@@ -8,7 +8,7 @@ class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     *foreign
      * @return void
      */
     public function up()
@@ -19,18 +19,18 @@ class CreateUsersTable extends Migration
             $table->string('surname');
             $table->string('secondSurname');
             $table->string('documentIdentity');
-            $table->integer('countryId');
-            $table->integer('provinceId');
-            $table->integer('cityId');
-            $table->integer('municipalityId');
-            $table->integer('streetId');
-            $table->integer('number');
+            $table->integer('countryId')->nullable();
+            $table->integer('provinceId')->nullable();
+            $table->integer('cityId')->nullable();
+            $table->integer('municipalityId')->nullable();
+            $table->integer('streetId')->nullable();
+            $table->integer('number')->nullable();
             $table->string('firstCellphone');
-            $table->string('secondCellphone');
+            $table->string('secondCellphone')->nullable();
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('status');
-            $table->integer('personRoleId');
+            $table->boolean('status')->default(true);
+            $table->UnsignedBigInteger('personRoleId');
             $table->rememberToken();
             $table->timestamps();
         });
