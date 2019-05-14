@@ -1,0 +1,11 @@
+commit 3f2c049d4dabc1bb8a6b49448715c5adb4be1f5e
+Author: SanchezJ <jhorvissanchez2@gmail.com>
+Date:   Tue Apr 23 18:16:50 2019 -0400
+
+    Se agrega una nueva prueba para usuarios
+
+commit 80ee4ff5ea812aa347183a8b98c25fdffcdc222a
+Author: SanchezJ <jhorvissanchez2@gmail.com>
+Date:   Tue Apr 23 18:04:12 2019 -0400
+
+    Se inicia

@@ -17,12 +17,14 @@ class DatabaseSeeder extends Seeder
     		'measurementunits',
             'users',
             'personroles',
+            'products'
     		]);
 
         $this->call(MeasureSeeder::class);
         $this->call(MeasurementunitsSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(PersonroleSeeder::class);
+        $this->call(ProductSeeder::class);
     }
 
     protected function truncateTables (array $tables)
