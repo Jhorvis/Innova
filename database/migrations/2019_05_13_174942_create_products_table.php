@@ -17,13 +17,14 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('name', 30);
             $table->string('brandId')->nullable();
-            $table->string('descriptionLarge', 1000);
+            $table->string('descriptionLarge', 1000)->nullable();
             $table->string('descriptionShort', 50)->nullable();
             $table->integer('measureId')->nullable();
             $table->string('value')->nullable();
             $table->string('code');
-            $table->string('maxStock');
-            $table->string('minStock')->default(0);
+            $table->bigInteger('price');
+            $table->string('maxStock')->nullable();
+            $table->string('minStock')->default(0)->nullable();
             $table->timestamps();
 
         });

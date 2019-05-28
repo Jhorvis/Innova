@@ -14,4 +14,17 @@ class ProductController extends Controller
 
     	return view('productos/index', compact('products'));
     }
+
+    public function store (Request $request) {
+
+    	$product = new Product();
+    	$product->name = $request->name;
+    	$product->code = $request->code;
+    	$product->price = $request->price;
+    	$product->save();
+    	$products = Product::all();
+    	return view('productos/index', compact('products'));
+
+
+    }
 }

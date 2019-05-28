@@ -11,6 +11,9 @@ Route::get('/productos', function () {
 
 Route::resource('products', 'ProductController');
 
+
+
+
 Route::get('/reporte/Roles', function () {
  return Excel::download(new PersonrolesExport, 'roles.xls');
  
