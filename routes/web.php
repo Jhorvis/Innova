@@ -5,8 +5,8 @@
 use App\Exports\PersonrolesExport;
 use Maatwebsite\Excel\Facades\Excel;
 
-Route::get('/productos', function () {
-    return view('productos/index');
+Route::get('/', function () {
+    return view('welcome');
 });
 
 Route::resource('products', 'ProductController');
