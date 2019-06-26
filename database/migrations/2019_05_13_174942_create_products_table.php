@@ -26,6 +26,7 @@ class CreateProductsTable extends Migration
             $table->string('maxStock')->nullable();
             $table->string('minStock')->default(0)->nullable();
             $table->timestamps();
+            //productos
 
         });
     }
