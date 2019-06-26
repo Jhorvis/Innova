@@ -1,35 +1,101 @@
-@extends('layout')
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Innova | Expansion Chile</title>
+  <link rel="stylesheet" href="style/index_style.css">
+</head>
+<body>
+  
+  <div id="titulo">
+    <p id="header">Menu de acceso rapido</p>
+    <p id="subheader">Expansion Chile</p> 
+  </div>
 
-@section('content')
+  <header>
+    <a href="">
+    <div class="contenedor" id="uno">
+      <img class="icon" src="img/business/png/home.png">
+      <p class="texto">Home</p>
+    </div>
+    </a>
+<a href="{{ route('products.index') }}">
+    <div class="contenedor" id="dos">
+      <img class="icon" src="img/business/png/package.png">
+      <p class="texto">Productos</p>
+    </div>
+    </a>
+<a href="#">
+    <div class="contenedor" id="tres">
+      <img class="icon" src="img/business/png/shopping-cart.png">
+      <p class="texto">Crear Pedido</p>
+    </div>
+    </a>
+<a href="#">
+    <div class="contenedor" id="cuatro">
+      <img class="icon" src="img/business/png/deal.png">
+      <p class="texto">Clientes</p>
+    </div>
+    </a>
+<a href="#">
+    <div class="contenedor" id="cinco">
+      <img class="icon" src="img/business/png/businessman.png">
+      <p class="texto">Vendedores</p>
+    </div>
+    </a>
+<a href="#">
+    <div class="contenedor" id="seis">
+      <img class="icon" src="img/business/png/bank.png">
+      <p class="texto">Finanzas</p>
+    </div>
+    </a>
 
- <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Menu de acceso rápido</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
 
-                    
-
-                  </div>
-              </div>
-          </div>
+  </header>
 
 
-@endsection
+
+  
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
