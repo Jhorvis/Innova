@@ -11,10 +11,11 @@ Route::get('/', function () {
 
 Route::resource('products', 'ProductController');
 
-
+Route::resource('orders', 'OrderController');
 
 
 Route::get('/reporte/Roles', function () {
  return Excel::download(new PersonrolesExport, 'roles.xls');
  
 });
+

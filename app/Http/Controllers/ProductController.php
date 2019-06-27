@@ -27,4 +27,21 @@ class ProductController extends Controller
 
 
     }
+
+    public function show ($codigo) {
+
+     $price = Product::whereCode($codigo)->value('price');
+
+     if (!$price) 
+     {
+        return 0;
+     } else {
+
+     }
+
+     return $price;
+
+      
+    }
+
 }
