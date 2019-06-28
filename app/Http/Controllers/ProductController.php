@@ -28,18 +28,27 @@ class ProductController extends Controller
 
     }
 
-    public function show ($codigo) {
+    public function show () {
+      
+    }
+
+    public function ShowProductByCode ($codigo) {
 
      $price = Product::whereCode($codigo)->value('price');
+     $name = Product::whereCode($codigo)->value('name');
+     $neto = intval($price / 1.19);
 
      if (!$price) 
      {
-        return 0;
+        $price = "N/A";
+        $name = "Codigo No encontrado";
+        $neto = 0;
+        return compact('price', 'name');
      } else {
 
      }
 
-     return $price;
+        return compact('price', 'name', 'neto');
 
       
     }

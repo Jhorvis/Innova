@@ -25,24 +25,30 @@
                   </div>
                   <div class="x_content">
 
+                    <form method="post" action="">
                   	<div class="col-md-4 col-sm-4 col-xs-12 col-lg-2">
                   		<label>Código</label>
                   		<input id="codigo" type="text" name="codigo" class="form-control" placeholder="Digite Código de producto" onchange="select_product();">
                   	</div>
                   	<div class="col-md-2 col-sm-2 col-xs-2 col-lg-2">
                   		<label>Cantidad</label>
-                  		<input type="number" name="cantidad" class="form-control" min="1">
+                  		<input type="number" id="cantidad" name="cantidad" class="form-control" min="1">
                   	</div>
+
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-lg-2">
+                      <label>Producto</label>
+                      <input id="producto" type="text" name="producto" class="form-control" readonly>
+                    </div>
 
                   		<div class="col-md-2 col-sm-2 col-xs-2 col-lg-2">
                   		<label>Neto</label>
-                  		<input id="neto"  type="number" name="neto" class="form-control" min="0" readonly value="0">
+                  		<input id="neto"  type="text" name="neto" class="form-control" min="0" readonly value="0">
                   	</div>
                   	<div class="col-md-2 col-sm-2 col-xs-2 col-lg-2">
                   		<label>Con IVA</label>
-                  		<input type="number" name="precio" class="form-control" min="0" value="0" readonly>
+                  		<input  id="precio" type="number" name="precio" class="form-control" min="0" value="0" readonly>
                   	</div>
-
+                    </form>
 
                   </div>
                   <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6">
@@ -89,13 +95,23 @@
       var codigo = $("#codigo").val();
  
     
-      $.get('products/'+codigo, function(data){
-//esta el la peticion get, la cual se divide en tres partes. ruta,variables y funcion
-        console.log(data);
+      $.get('products.code/'+codigo, function(data){
 
-            $("#neto").val(data);
+console.log(data);
 
-      }); /*   */
+	
+	    $("#precio").val(data.price);
+      $("#neto").val(data.neto);
+      $("#producto").val(data.name);
+
+      if (data.price == "N/A")
+      {
+         $("#cantidad").attr("disabled",true);
+      } else {
+         $("#cantidad").attr("disabled",false);
+      }
+
+      }); 
  
 }
 </script>
