@@ -25,7 +25,8 @@
                   </div>
                   <div class="x_content">
 
-                    <form method="post" action="">
+                    <form method="post" action="{{ route('ordersDetails.store') }}">
+                      {!!csrf_field()!!}
                   	<div class="col-md-4 col-sm-4 col-xs-12 col-lg-2">
                   		<label>Código</label>
                   		<input id="codigo" type="text" name="codigo" class="form-control" placeholder="Digite Código de producto" onchange="select_product();">
@@ -48,6 +49,10 @@
                   		<label>Con IVA</label>
                   		<input  id="precio" type="number" name="precio" class="form-control" min="0" value="0" readonly>
                   	</div>
+                    <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1">
+                     <br>
+                     <button class="btn btn-primary "><li class="fa fa-plus"> Agregar</li></button>
+                    </div>
                     </form>
 
                   </div>
@@ -75,17 +80,22 @@
                   		<td>Numero de productos:</td>
                   		<tr>
                   		<td>Neto: </td>
+                    </tr>
                   		<tr>
                   		<td>Iva %:</td>
+                    </tr>
                   		<tr>
                   		<td>Total:</td>
+                    </tr>
                   		<tr>
+                      </tr>
                   		
                   	</tbody>
                   </table>
               </div>
               </div>
           </div>
+
 
 <script type="text/javascript">
 	function select_product()

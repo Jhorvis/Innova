@@ -25,7 +25,7 @@
       <p class="texto">Productos</p>
     </div>
     </a>
-<a href="{{ route('orders.index') }}">
+<a href="{{ route('orders.create') }}">
     <div class="contenedor" id="tres">
       <img class="icon" src="img/business/png/shopping-cart.png">
       <p class="texto">Crear Pedido</p>

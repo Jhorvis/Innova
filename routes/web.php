@@ -12,6 +12,7 @@ Route::get('/', function () {
 Route::resource('products', 'ProductController');
 
 Route::resource('orders', 'OrderController');
+Route::resource('ordersDetails', 'OrderdetailController');
 
 Route::get('products.code/{code}', 'ProductController@ShowProductByCode');
 
