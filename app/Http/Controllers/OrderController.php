@@ -3,36 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Order;
+
+use App\Client;
 
 class OrderController extends Controller
 {
-     public function index () 
-    {
+ 	public function index () {
 
-    	return view('order/index');
-    }
+ 		$clients = Client::all();
 
-        public function create () 
-    {
+ 		dd($clients);
 
-    	$order = new Order();
+ 		return view('order/create', compact('clients'));
 
-    	$Orders= Order::all();
-		$UltimoRegistro =	$Orders->last();
-		$UltimoNumero = $UltimoRegistro->NumberOrder;
+ 	}
 
-    	$order->idClient = 1;
-    	if ($UltimoNumero) {
-    	$order->NumberOrder = $UltimoNumero + 1;
-    	} else {
-    		$order->NumberOrder =  1;
-    	}
-    	$order->state = 1;
-    	$order->save();
+ 	public function create () {
 
-    	return view('order/index');
-    }
+ 		
+
+ 	}
+
+ 	function edit () {
+
+ 	}
+
+ 	function update () {
+
+ 	}
+
+ 	function store () {
+
+ 	}
+}
 
     	
     	
