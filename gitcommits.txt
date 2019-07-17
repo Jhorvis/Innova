@@ -9,3 +9,7 @@ Author: SanchezJ <jhorvissanchez2@gmail.com>
 Date:   Tue Apr 23 18:04:12 2019 -0400
 
     Se inicia
+
+Forzar el Branch
+    git fetch --all
+git reset --hard origin/master

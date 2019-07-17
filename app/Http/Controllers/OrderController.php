@@ -36,7 +36,18 @@ class OrderController extends Controller
 
  	public function store (Request $request)
  	 {
- 		$idCliente = $request->cliente;
+        $idCliente = $request->cliente;
+
+        $verificaOrden = DB::table('orders')->where('state', 0)->where('idClient', $idCliente)->get();
+        foreach ($verificaOrden as $verificaOrden);
+
+        if (!empty($verificaOrden->id))
+        {
+            $idOrder = $verificaOrden->id;
+
+        } else {
+
+ 	
  		$Order = new Order();
  		$Order->idClient = $idCliente;
  		$Order->NumberOrder = 1;
@@ -46,9 +57,15 @@ class OrderController extends Controller
  		$getId = DB::table('orders')->where('idClient', $idCliente)->where('state', 0)->select('id')->take(1)->orderBy('id', 'desc')->get();
  		 foreach ($getId as $getId);
  		 $idOrder = $getId->id;
+        }
+
+        $getOrderDetails = DB::table('orderdetails')
+                            ->join('products', 'products.id', 'orderdetails.idProducts')
+                            ->where('idOrder', $idOrder)
+                            ->get();
  		 
 
- 		return view('order/index', compact('idOrder'));
+ 		return view('order/index', compact('idOrder', 'getOrderDetails'));
  	}
 }
 

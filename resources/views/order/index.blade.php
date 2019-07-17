@@ -31,6 +31,7 @@
                       {!!csrf_field()!!}
                     
                       <input type="hidden" name="idOrder" value="{{$idOrder}}">
+
                   	<div class="col-md-4 col-sm-4 col-xs-12 col-lg-2">
                   		<label>Código</label>
                   		<input id="codigo" type="text" name="codigo" class="form-control" placeholder="Digite Código de producto" onchange="select_product();">
@@ -66,12 +67,26 @@
                   		<th>Item</th>
                   		<th>Producto</th>
                   		<th>Cantidad</th>
+                      <th>Precio U</th>
+                      <th>Precio T</th>
                   	</thead>
-                  	<tbody>
-                  		<td></td>
-                  		<td></td>
-                  		<td></td>
+                    <?php $i = 1; ?>
+                  	
+                    
+
+                    <tbody>
+
+                      @foreach($getOrderDetails as $getOrderDetails)
+                  		<td>{{ $i }}</td>
+                  		<td>{{ $getOrderDetails->name }}</td>
+                  		<td>{{ $getOrderDetails->quantity }}</td>
+                      <td>{{ $getOrderDetails->price }}</td>
+                      <td>{{ $getOrderDetails->price * $getOrderDetails->quantity}}</td>
                   	</tbody>
+                    <?php $i++; ?>
+                    @endforeach
+
+
                   </table>
               </div>
               <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6">
