@@ -24,23 +24,23 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-
+                    <form action="{{ route('order.store') }}" method="POST">
+                      {!!csrf_field()!!}
+                   
                   	<div class="form-group">
-                  		
+                  		<div class="col-md-5 col-lg-5 col-xs-12">
                   		<select name="cliente" class="form-control">
                   			<option value="">Selecciona</option>
 
-                  			{{$clients}}
-
                   			@foreach ($clients as $clients);
-                  			<option value="{{$clients->id}}">Awebo</option>
+                  			<option value="{{$clients->id}}">{{$clients->dni}}, {{$clients->name}}</option>
                   			@endforeach
                   			
                   		</select>
-
+                      </div>
                   		<button type="submit" class="btn btn-primary">Aceptar</button>
                   	</div>
-
+                     </form>
                   </div>
               </div>
           </div>

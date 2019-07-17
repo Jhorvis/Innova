@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 
 use App\Client;
 
+use App\Order;
+
+use \Illuminate\Support\Facades\DB;
+
 class OrderController extends Controller
 {
  	public function index () {
 
  		$clients = Client::all();
-
- 		dd($clients);
 
  		return view('order/create', compact('clients'));
 
@@ -32,8 +34,21 @@ class OrderController extends Controller
 
  	}
 
- 	function store () {
+ 	public function store (Request $request)
+ 	 {
+ 		$idCliente = $request->cliente;
+ 		$Order = new Order();
+ 		$Order->idClient = $idCliente;
+ 		$Order->NumberOrder = 1;
+ 		$Order->state=0;
+ 		$Order->save();
 
+ 		$getId = DB::table('orders')->where('idClient', $idCliente)->where('state', 0)->select('id')->take(1)->orderBy('id', 'desc')->get();
+ 		 foreach ($getId as $getId);
+ 		 $idOrder = $getId->id;
+ 		 
+
+ 		return view('order/index', compact('idOrder'));
  	}
 }
 
@@ -41,4 +56,3 @@ class OrderController extends Controller
     	
 
 
-}

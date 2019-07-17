@@ -10,11 +10,13 @@ Route::get('/', function () {
 });
 
 
-#/-----Rutas principales
+#/-----Rutas principaleShowProductByCodes
 
 Route::resource('products', 'ProductController');
 Route::resource('order', 'OrderController');
-Route::resource('ordersDetails', 'OrdersDetail');
+Route::resource('ordersDetails', 'OrderdetailController');
+
+Route::get('products.code/{code}', 'ProductController@ShowProductByCode');
 
 #-------------------/
 

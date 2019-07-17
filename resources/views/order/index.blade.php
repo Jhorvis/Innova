@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+
  <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
@@ -27,6 +29,8 @@
 
                     <form method="post" action="{{ route('ordersDetails.store') }}">
                       {!!csrf_field()!!}
+                    
+                      <input type="hidden" name="idOrder" value="{{$idOrder}}">
                   	<div class="col-md-4 col-sm-4 col-xs-12 col-lg-2">
                   		<label>Código</label>
                   		<input id="codigo" type="text" name="codigo" class="form-control" placeholder="Digite Código de producto" onchange="select_product();">
