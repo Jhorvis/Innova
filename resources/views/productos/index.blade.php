@@ -2,8 +2,6 @@
 
 @section('content')
 
-
-
  <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
@@ -34,13 +32,13 @@
                         <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">Producto <span class="required">*</span>
                         </label>
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="1" data-validate-words="1" name="name" placeholder="Ingresar nombre de producto. Ej: Caja Lapices" required="required" type="text">
+                          <input class="form-control col-md-7 col-xs-12"  name="name" placeholder="Ingresar nombre de producto. Ej: Caja Lapices" required="required" type="text">
                         </div>
 
                          <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">Código <span class="required">*</span>
                         </label>
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <input id="code" class="form-control col-md-7 col-xs-12" data-validate-length-range="1" name="code" placeholder="Ingresar código del producto" required="required" type="number">
+                          <input  class="form-control col-md-7 col-xs-12" name="code" placeholder="Ingresar código del producto" required="required" type="number">
                         </div>
                       </div>
 
@@ -48,7 +46,7 @@
                         <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">Precio <span class="required">*</span>
                         </label>
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <input id="price" class="form-control col-md-7 col-xs-12" data-validate-length-range="1" name="price" placeholder="Ingresa el precio neto del producto" required="required" type="number">
+                          <input class="form-control col-md-7 col-xs-12" name="price" placeholder="Ingresa el precio neto del producto" required="required" type="number">
                         </div>
 
                          <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">Marca<span class="required">*</span>
@@ -66,9 +64,20 @@
                       </div>
                     </form>
                   </div>
+
                  </div>
+                 @if ($message == "")
+                 <div class="alert alert-info"><center>{{ $message }}</center></div>
+                 @elseif ($message == "Producto ingresado con éxito")
+                 <div class="alert alert-success"><center>{{ $message }}</center></div>
+                 @else
+                 <div class="alert alert-danger"><center>{{ $message }}</center></div>
+                 @endif
  </div>
 
+       
+         
+        
 
 
 
@@ -128,6 +137,7 @@
 				@endforeach
 			</tbody>
 		</table>
+
 						   
   
 

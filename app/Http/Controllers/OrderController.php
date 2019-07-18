@@ -38,6 +38,7 @@ class OrderController extends Controller
  	 {
         $idCliente = $request->cliente;
 
+        #Verificando Orden abierta (0) para el cliente solicitado
         $verificaOrden = DB::table('orders')->where('state', 0)->where('idClient', $idCliente)->get();
         foreach ($verificaOrden as $verificaOrden);
 
