@@ -107,17 +107,18 @@ strong
                   		
                   	</thead>
                   	<tbody>
-                  		<td>Cantidad de articulos:<strong>{{ $totalQuantity }}</strong></td>
+                  		<td>Cantidad de articulos:<strong>  {{ $totalQuantity }}</strong></td>
                   		<tr>
-                  		<td>Neto:<strong> {{ number_format($totalNeto) }}</strong></td>
+                  		<td>Neto:<strong>  {{ number_format($totalNeto) }}</strong></td>
                     </tr>
                   		<tr>
                   		<td>Iva %:<strong> 19</strong></td>
                     </tr>
                   		<tr>
-                  		<td>Total:<strong>{{ number_format($totalPrice) }}</strong> </td>
+                  		<td>Total:<strong>  {{ number_format($totalPrice) }}</strong> </td>
                     </tr>
                   		<tr>
+                        <td></i><button type="" class="btn btn-primary"><i class="fa fa-print"></i> Procesar</button><button type="" class="btn btn-danger"><i class="fa fa-minus-circle"></i> Cancelar</button></td>
                       </tr>
                   		
                   	</tbody>
