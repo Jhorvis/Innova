@@ -10,7 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 
 class AppendQueryToSheet implements ShouldQueue
 {
-    use Queueable, Dispatchable, ProxyFailures;
+    use Queueable, Dispatchable;
 
     /**
      * @var SerializedQuery

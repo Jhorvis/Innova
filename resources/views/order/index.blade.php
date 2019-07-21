@@ -118,7 +118,19 @@ strong
                   		<td>Total:<strong>  {{ number_format($totalPrice) }}</strong> </td>
                     </tr>
                   		<tr>
-                        <td></i><button type="" class="btn btn-primary"><i class="fa fa-print"></i> Procesar</button><button type="" class="btn btn-danger"><i class="fa fa-minus-circle"></i> Cancelar</button></td>
+                        <td>
+                          <form method="post" action="{{ route('sale') }}">
+                            {!!csrf_field()!!}
+                            <input type="hidden" name="idOrder" value="{{ $idOrder }}">
+                          <button type="" class="btn btn-primary"><i class="fa fa-print"></i> Procesar</button>
+                          </form>
+
+                           <form  method="post" action="{{ route('cancel') }}">
+                            {!!csrf_field()!!}
+                            <input type="hidden" name="idOrder" value="{{ $idOrder }}">
+                          <button type="" class="btn btn-danger"><i class="fa fa-minus-circle"></i> Cancelar</button>
+                           </form>
+                          </td>
                       </tr>
                   		
                   	</tbody>

@@ -18,6 +18,8 @@ Route::resource('ordersDetails', 'OrderdetailController');
 
 Route::get('products.code/{code}', 'ProductController@ShowProductByCode');
 
+Route::post('sale.order', 'SaleorderController@store')->name('sale');
+Route::post('cancel.order', 'SaleorderController@cancel')->name('cancel');
 #-------------------/
 
 

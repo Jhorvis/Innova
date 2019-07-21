@@ -523,7 +523,7 @@ class Cell
     /**
      * If this cell is in a merge range, then return the range.
      *
-     * @return false|string
+     * @return string
      */
     public function getMergeRange()
     {

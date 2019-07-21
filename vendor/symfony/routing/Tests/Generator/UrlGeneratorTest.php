@@ -162,6 +162,82 @@ class UrlGeneratorTest extends TestCase
         $this->assertSame('/app.php/de', $url);
     }
 
+    public function testGenerateWithDefaultLocale()
+    {
+        $routes = new RouteCollection();
+
+        $route = new Route('');
+
+        $name = 'test';
+
+        foreach (['hr' => '/foo', 'en' => '/bar'] as $locale => $path) {
+            $localizedRoute = clone $route;
+            $localizedRoute->setDefault('_locale', $locale);
+            $localizedRoute->setDefault('_canonical_route', $name);
+            $localizedRoute->setPath($path);
+            $routes->add($name.'.'.$locale, $localizedRoute);
+        }
+
+        $generator = $this->getGenerator($routes, [], null, 'hr');
+
+        $this->assertSame(
+            'http://localhost/app.php/foo',
+            $generator->generate($name, [], UrlGeneratorInterface::ABSOLUTE_URL)
+        );
+    }
+
+    public function testGenerateWithOverriddenParameterLocale()
+    {
+        $routes = new RouteCollection();
+
+        $route = new Route('');
+
+        $name = 'test';
+
+        foreach (['hr' => '/foo', 'en' => '/bar'] as $locale => $path) {
+            $localizedRoute = clone $route;
+            $localizedRoute->setDefault('_locale', $locale);
+            $localizedRoute->setDefault('_canonical_route', $name);
+            $localizedRoute->setPath($path);
+            $routes->add($name.'.'.$locale, $localizedRoute);
+        }
+
+        $generator = $this->getGenerator($routes, [], null, 'hr');
+
+        $this->assertSame(
+            'http://localhost/app.php/bar',
+            $generator->generate($name, ['_locale' => 'en'], UrlGeneratorInterface::ABSOLUTE_URL)
+        );
+    }
+
+    public function testGenerateWithOverriddenParameterLocaleFromRequestContext()
+    {
+        $routes = new RouteCollection();
+
+        $route = new Route('');
+
+        $name = 'test';
+
+        foreach (['hr' => '/foo', 'en' => '/bar'] as $locale => $path) {
+            $localizedRoute = clone $route;
+            $localizedRoute->setDefault('_locale', $locale);
+            $localizedRoute->setDefault('_canonical_route', $name);
+            $localizedRoute->setPath($path);
+            $routes->add($name.'.'.$locale, $localizedRoute);
+        }
+
+        $generator = $this->getGenerator($routes, [], null, 'hr');
+
+        $context = new RequestContext('/app.php');
+        $context->setParameter('_locale', 'en');
+        $generator->setContext($context);
+
+        $this->assertSame(
+            'http://localhost/app.php/bar',
+            $generator->generate($name, [], UrlGeneratorInterface::ABSOLUTE_URL)
+        );
+    }
+
     /**
      * @expectedException \Symfony\Component\Routing\Exception\RouteNotFoundException
      */
@@ -169,6 +245,29 @@ class UrlGeneratorTest extends TestCase
     {
         $routes = $this->getRoutes('foo', new Route('/testing/{foo}'));
         $this->getGenerator($routes)->generate('test', [], UrlGeneratorInterface::ABSOLUTE_URL);
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Routing\Exception\RouteNotFoundException
+     */
+    public function testGenerateWithInvalidLocale()
+    {
+        $routes = new RouteCollection();
+
+        $route = new Route('');
+
+        $name = 'test';
+
+        foreach (['hr' => '/foo', 'en' => '/bar'] as $locale => $path) {
+            $localizedRoute = clone $route;
+            $localizedRoute->setDefault('_locale', $locale);
+            $localizedRoute->setDefault('_canonical_route', $name);
+            $localizedRoute->setPath($path);
+            $routes->add($name.'.'.$locale, $localizedRoute);
+        }
+
+        $generator = $this->getGenerator($routes, [], null, 'fr');
+        $generator->generate($name);
     }
 
     /**
@@ -480,66 +579,34 @@ class UrlGeneratorTest extends TestCase
 
     public function testDefaultHostIsUsedWhenContextHostIsEmpty()
     {
-        $routes = $this->getRoutes('test', new Route('/path', ['domain' => 'my.fallback.host'], ['domain' => '.+'], [], '{domain}'));
+        $routes = $this->getRoutes('test', new Route('/route', ['domain' => 'my.fallback.host'], ['domain' => '.+'], [], '{domain}', ['http']));
 
         $generator = $this->getGenerator($routes);
         $generator->getContext()->setHost('');
 
-        $this->assertSame('http://my.fallback.host/app.php/path', $generator->generate('test', [], UrlGeneratorInterface::ABSOLUTE_URL));
+        $this->assertSame('http://my.fallback.host/app.php/route', $generator->generate('test', [], UrlGeneratorInterface::ABSOLUTE_URL));
     }
 
-    public function testDefaultHostIsUsedWhenContextHostIsEmptyAndPathReferenceType()
+    public function testDefaultHostIsUsedWhenContextHostIsEmptyAndSchemeIsNot()
     {
-        $routes = $this->getRoutes('test', new Route('/path', ['domain' => 'my.fallback.host'], ['domain' => '.+'], [], '{domain}'));
+        $routes = $this->getRoutes('test', new Route('/route', ['domain' => 'my.fallback.host'], ['domain' => '.+'], [], '{domain}', ['http', 'https']));
 
         $generator = $this->getGenerator($routes);
         $generator->getContext()->setHost('');
+        $generator->getContext()->setScheme('https');
 
-        $this->assertSame('//my.fallback.host/app.php/path', $generator->generate('test', [], UrlGeneratorInterface::ABSOLUTE_PATH));
+        $this->assertSame('https://my.fallback.host/app.php/route', $generator->generate('test', [], UrlGeneratorInterface::ABSOLUTE_URL));
     }
 
-    public function testAbsoluteUrlFallbackToPathIfHostIsEmptyAndSchemeIsHttp()
+    public function testAbsoluteUrlFallbackToRelativeIfHostIsEmptyAndSchemeIsNot()
     {
-        $routes = $this->getRoutes('test', new Route('/route'));
+        $routes = $this->getRoutes('test', new Route('/route', [], [], [], '', ['http', 'https']));
 
         $generator = $this->getGenerator($routes);
         $generator->getContext()->setHost('');
         $generator->getContext()->setScheme('https');
 
         $this->assertSame('/app.php/route', $generator->generate('test', [], UrlGeneratorInterface::ABSOLUTE_URL));
-    }
-
-    public function testAbsoluteUrlFallbackToNetworkIfSchemeIsEmptyAndHostIsNot()
-    {
-        $routes = $this->getRoutes('test', new Route('/path'));
-
-        $generator = $this->getGenerator($routes);
-        $generator->getContext()->setHost('example.com');
-        $generator->getContext()->setScheme('');
-
-        $this->assertSame('//example.com/app.php/path', $generator->generate('test', [], UrlGeneratorInterface::ABSOLUTE_URL));
-    }
-
-    public function testAbsoluteUrlFallbackToPathIfSchemeAndHostAreEmpty()
-    {
-        $routes = $this->getRoutes('test', new Route('/path'));
-
-        $generator = $this->getGenerator($routes);
-        $generator->getContext()->setHost('');
-        $generator->getContext()->setScheme('');
-
-        $this->assertSame('/app.php/path', $generator->generate('test', [], UrlGeneratorInterface::ABSOLUTE_URL));
-    }
-
-    public function testAbsoluteUrlWithNonHttpSchemeAndEmptyHost()
-    {
-        $routes = $this->getRoutes('test', new Route('/path', [], [], [], '', ['file']));
-
-        $generator = $this->getGenerator($routes);
-        $generator->getContext()->setBaseUrl('');
-        $generator->getContext()->setHost('');
-
-        $this->assertSame('file:///path', $generator->generate('test', [], UrlGeneratorInterface::ABSOLUTE_URL));
     }
 
     public function testGenerateNetworkPath()
@@ -752,7 +819,7 @@ class UrlGeneratorTest extends TestCase
         yield ['/app.php/bar/a/b/bam/c/d/e', '/bar/{foo}/bam/{baz}', '(?<!^).+'];
     }
 
-    protected function getGenerator(RouteCollection $routes, array $parameters = [], $logger = null)
+    protected function getGenerator(RouteCollection $routes, array $parameters = [], $logger = null, string $defaultLocale = null)
     {
         $context = new RequestContext('/app.php');
         foreach ($parameters as $key => $value) {
@@ -760,7 +827,7 @@ class UrlGeneratorTest extends TestCase
             $context->$method($value);
         }
 
-        return new UrlGenerator($routes, $context, $logger);
+        return new UrlGenerator($routes, $context, $logger, $defaultLocale);
     }
 
     protected function getRoutes($name, Route $route)

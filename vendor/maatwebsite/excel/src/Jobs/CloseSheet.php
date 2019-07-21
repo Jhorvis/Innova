@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CloseSheet implements ShouldQueue
 {
-    use Queueable, ProxyFailures;
+    use Queueable;
 
     /**
      * @var object

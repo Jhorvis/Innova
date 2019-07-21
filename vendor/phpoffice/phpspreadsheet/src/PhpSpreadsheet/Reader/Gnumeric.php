@@ -36,7 +36,7 @@ class Gnumeric extends BaseReader
      */
     public function __construct()
     {
-        parent::__construct();
+        $this->readFilter = new DefaultReadFilter();
         $this->referenceHelper = ReferenceHelper::getInstance();
         $this->securityScanner = XmlScanner::getInstance($this);
     }
