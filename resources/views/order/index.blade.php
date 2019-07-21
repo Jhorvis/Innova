@@ -3,6 +3,17 @@
 @section('content')
 
 
+<style type="text/css" media="screen">
+
+strong 
+{
+  color: #F00;
+  font-size: 18px;
+}
+  
+</style>
+
+
 
  <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -80,8 +91,8 @@
                   		<td>{{ $i }}</td>
                   		<td>{{ $getOrderDetails->name }}</td>
                   		<td>{{ $getOrderDetails->quantity }}</td>
-                      <td>{{ $getOrderDetails->price }}</td>
-                      <td>{{ $getOrderDetails->price * $getOrderDetails->quantity}}</td>
+                      <td>{{ number_format($getOrderDetails->price) }}</td>
+                      <td>{{ number_format($getOrderDetails->price * $getOrderDetails->quantity)}}</td>
                   	</tbody>
                     <?php $i++; ?>
                     @endforeach
@@ -96,15 +107,15 @@
                   		
                   	</thead>
                   	<tbody>
-                  		<td>Numero de productos:</td>
+                  		<td>Cantidad de articulos:<strong>{{ $totalQuantity }}</strong></td>
                   		<tr>
-                  		<td>Neto: </td>
+                  		<td>Neto:<strong> {{ number_format($totalNeto) }}</strong></td>
                     </tr>
                   		<tr>
-                  		<td>Iva %:</td>
+                  		<td>Iva %:<strong> 19</strong></td>
                     </tr>
                   		<tr>
-                  		<td>Total:</td>
+                  		<td>Total:<strong>{{ number_format($totalPrice) }}</strong> </td>
                     </tr>
                   		<tr>
                       </tr>

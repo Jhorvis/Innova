@@ -64,9 +64,12 @@ class OrderController extends Controller
                             ->join('products', 'products.id', 'orderdetails.idProducts')
                             ->where('idOrder', $idOrder)
                             ->get();
- 		 
 
- 		return view('order/index', compact('idOrder', 'getOrderDetails'));
+ 		$totalQuantity = DB::table('orderdetails')->where('idOrder', $idOrder)->sum('quantity');
+        $totalNeto = DB::table('orderdetails')->where('idOrder', $idOrder)->sum('neto');
+        $totalPrice = DB::table('orderdetails')->where('idOrder', $idOrder)->sum('price');
+        
+            return view('order/index', compact('idOrder', 'getOrderDetails', 'totalQuantity', 'totalNeto', 'totalPrice'));
  	}
 }
 
