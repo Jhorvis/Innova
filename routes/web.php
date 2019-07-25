@@ -24,7 +24,7 @@ Route::post('cancel.order', 'SaleorderController@cancel')->name('cancel');
 
 
 #/-------Rutas para generacion de reportes
-
+Route::get('pdf', 'PdfController@invoice');
 Route::get('/reporte/Roles', function () {
  return Excel::download(new PersonrolesExport, 'roles.xls');
 });

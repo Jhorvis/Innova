@@ -29,7 +29,24 @@ class SaleorderController extends Controller
         $updateOrder->state = 1;
         $updateOrder->update();
 
-        return view('welcome');
+        #Obteniendo listado de productos para enviar al reporte PDF
+
+         $products = DB::table('orderdetails')
+                            ->join('products', 'products.id', 'orderdetails.idProducts')
+                            ->where('idOrder', $idOrder)
+                            ->get();
+        #Fin de obtención de productos
+
+
+          #Bloque de código para generar reporte PDF-----
+        $date = date('d-m-Y H:i:s');
+        $invoice = $idOrder;
+        $view =  \View::make('pdf.invoice', compact('products','totalPrice', 'totalNeto', 'date', 'invoice'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        #Fin de PDF
+
+        return $pdf->stream('invoice');
 
     }
 
