@@ -78,4 +78,43 @@ class ProductController extends Controller
       
     }
 
+    public function edit ($id)
+    {
+        $product = Product::find($id);
+        return view('productos/edit', compact('product'));
+    }
+
+    public function update (Request $request)
+    {
+       
+       $product = Product::find($request->id);
+
+       $product->name = $request->name;
+       $product->code = $request->code;
+       $product->price = $request->price;
+
+       $product->save();
+
+       return view('productos/save');
+
+
+
+        
+    }
+
+    public function countcode ()
+
+    {
+        $data = Product::orderBy('code', 'DESC')->take(1)->get();
+       
+
+        foreach ($data as $lastcode);
+
+        $sumcode = $lastcode->code + 1;
+
+        $stringcode = "0".$sumcode;
+
+       return compact('stringcode');
+    }
+
 }

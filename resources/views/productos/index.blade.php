@@ -38,7 +38,7 @@
                          <label class="control-label col-md-2 col-sm-2 col-xs-12" for="name">Código <span class="required">*</span>
                         </label>
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <input  class="form-control col-md-7 col-xs-12" name="code" placeholder="Ingresar código del producto" required="required" type="number">
+                          <input id="code" class="form-control col-md-7 col-xs-12" name="code" placeholder="Ingresar código del producto" required="required" type="text" readonly>
                         </div>
                       </div>
 
@@ -130,7 +130,14 @@
 					<td>{{ $products->code }}</td>
 					<td>{{ $products->price }}</td>
 					<td width="8%"><a href="#" class="btn btn-xs btn-info" title="Ver mas"><span class="fa fa-eye"></span></a>
-						<a href="#" class="btn btn-xs btn-success" title="Editar"><span class="fa fa-pencil"></span></a>
+
+						<a href="{{ url('products.id/'.$products->id) }}"  target="_blank" 
+
+              onclick="window.open(this.href, this.target, 'width=300,height=400'); return false;" 
+
+              class="btn btn-xs btn-success" title="Editar"><span class="fa fa-pencil">
+              
+            </span></a>
 						<a href="#" class="btn btn-xs btn-danger" title="Eliminar"><span class="fa fa-trash"></span></a>
 					</td>
 				</tr>
@@ -138,11 +145,30 @@
 			</tbody>
 		</table>
 
-						   
-  
-
-
+	
                    </div>
                </div>
            </div>
+
+<script type="text/javascript">
+
+      function sumcode()
+{
+    
+      $.get('products.countcode', function(data){
+
+      console.log(data);
+
+  
+      $("#code").val(data.stringcode);
+
+      }); 
+ 
+}
+
+    window.onload=sumcode;
+
+
+</script>
+
 @endsection
