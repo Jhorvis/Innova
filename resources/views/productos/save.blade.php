@@ -34,7 +34,7 @@
 <body>
 <div class="area-general">
 <div class="form-group area">
-<div class="alert alert-success">Producto actualizado de manera exitosa</div>
+<?php echo $message ?>
 
 <button class="btn btn-danger" onclick = "cerrar()">¡Cerrar!</button>
 </div>

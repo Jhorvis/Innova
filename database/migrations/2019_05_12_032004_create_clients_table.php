@@ -17,9 +17,11 @@ class CreateClientsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('dni');
-            $table->string('direction');
+            $table->string('comune');
+            $table->string('street');
+            $table->string('numberstreet');
+            $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->boolean('state');
             $table->timestamps();
         });
     }

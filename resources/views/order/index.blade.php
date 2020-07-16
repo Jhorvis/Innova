@@ -56,7 +56,6 @@ strong
                       <label>Producto</label>
                       <input id="producto" type="text" name="producto" class="form-control" readonly>
                     </div>
-
                   		<div class="col-md-2 col-sm-2 col-xs-2 col-lg-2">
                   		<label>Neto</label>
                   		<input id="neto"  type="text" name="neto" class="form-control" min="0" readonly value="0">
@@ -80,6 +79,7 @@ strong
                   		<th>Cantidad</th>
                       <th>Precio U</th>
                       <th>Precio T</th>
+                      <th> Eliminar </th>
                   	</thead>
                     <?php $i = 1; ?>
                   	
@@ -93,6 +93,7 @@ strong
                   		<td>{{ $getOrderDetails->quantity }}</td>
                       <td>{{ number_format($getOrderDetails->price) }}</td>
                       <td>{{ number_format($getOrderDetails->price * $getOrderDetails->quantity)}}</td>
+                      <td><button class="btn btn-xs btn-danger" onClick-+="eliminar();" id="buttonDel" value="{{ $getOrderDetails->id }}"><i class="fa fa-trash"></i></button></td>
                   	</tbody>
                     <?php $i++; ?>
                     @endforeach
@@ -166,6 +167,18 @@ console.log(data);
 
       }); 
  
+}
+
+function eliminar ()
+
+{
+  var id = $("#buttonDel").val();
+
+  $.get('ordersDetails.delete/'+id, function(data){
+
+    console.log(data);
+
+  });
 }
 
 

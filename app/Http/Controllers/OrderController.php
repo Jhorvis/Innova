@@ -12,6 +12,11 @@ use \Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+	public function __construct()
+    {
+        $this->middleware('auth');
+	}
+	
  	public function index () {
 
  		$clients = Client::all();

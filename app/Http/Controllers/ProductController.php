@@ -10,12 +10,23 @@ use \Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index () {
 
-    	$products = Product::all();
+        if (auth()->user()->admin)
+        {
+            $products = Product::all();
         $message = "";
 
-    	return view('productos/index', compact('products', 'message'));
+        return view('productos/index', compact('products', 'message'));
+
+        } else {
+            return response('Acceso denegado, No tiene permisos para ver esta URL',403);
+        }
     }
 
     public function store (Request $request) {
@@ -87,18 +98,32 @@ class ProductController extends Controller
     public function update (Request $request)
     {
        
-       $product = Product::find($request->id);
+         $searchCode = DB::table('products')->where('code', $request->code)->where('id', '<>', $request->id)->get();
 
-       $product->name = $request->name;
-       $product->code = $request->code;
-       $product->price = $request->price;
+        foreach ($searchCode as $searchCode);
 
-       $product->save();
+        if (!empty($searchCode->code)) {
 
-       return view('productos/save');
+            $message = "<div class='alert alert-danger'>¡ERROR! Este codigo ya fue insertado para el producto ".$searchCode->name."</div>";
+
+            return view('productos/save', compact('message'));
+
+
+        } else {
 
 
 
+
+         $product = Product::find($request->id);      
+        $product->name = $request->name;
+        $product->code = $request->code;
+        $product->price = $request->price;
+
+        $product->save();
+        $message = "<div class='alert alert-success'>Producto actualizado de manera exitosa</div>";
+        return view('productos/save', compact('message'));
+        
+        }
         
     }
 
@@ -112,7 +137,7 @@ class ProductController extends Controller
 
         $sumcode = $lastcode->code + 1;
 
-        $stringcode = "0".$sumcode;
+        $stringcode = $sumcode;
 
        return compact('stringcode');
     }

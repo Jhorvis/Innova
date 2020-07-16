@@ -80,4 +80,11 @@ class OrderdetailController extends Controller
 		
 		
 	}
+
+	public function delete ($id)
+	{
+		$SearchOrder = Orderdetail::find($id);
+
+		dd($SearchOrder);
+	}
 }

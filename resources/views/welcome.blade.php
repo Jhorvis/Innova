@@ -1,3 +1,4 @@
+{{ session('status') }}
 <!doctype html>
 <html lang="es">
 <head>
@@ -31,7 +32,7 @@
       <p class="texto">Crear Pedido</p>
     </div>
     </a>
-<a href="#">
+<a href="{{ route('clients.index') }}">
     <div class="contenedor" id="cuatro">
       <img class="icon" src="img/business/png/deal.png">
       <p class="texto">Clientes</p>
@@ -52,16 +53,8 @@
 
 
   </header>
-
-
-
-  
-
 </body>
 </html>
-
-
-
 
 
 

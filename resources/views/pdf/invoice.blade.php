@@ -173,6 +173,7 @@ footer {
             <th >Producto</th>
             <th>Cantidad</th>
             <th>Precio U</th>
+
             <th>Precio N.</th>
           </tr>
         </thead>
@@ -184,8 +185,8 @@ footer {
               <td style="width: 5%;">{{ $i }}</td>
               <td>{{ $products->name }}</td>
               <td>{{ $products->quantity }}</td>
-              <td>{{ number_format($products->price) }}</td>
-              <td>{{ number_format($products->price * $products->quantity)}}</td>
+              <td>{{ number_format($products->price / 1.19,2,',','') }}</td>
+              <td>{{ number_format(($products->price * $products->quantity)/1.19)}}</td>
 
             <?php $i++; ?>
           </tr>
